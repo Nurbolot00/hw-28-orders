@@ -64,6 +64,29 @@ export const getBasket = createAsyncThunk(
   }
 );
 
+
+
+export const submitOrder = createAsyncThunk(
+  "basket/addToBasket",
+  async ({orderData}, { dispatch, rejectWithValue }) => {
+    try {
+      await fetch(`https://jsonplaceholder.typicode.com/posts`, {
+        method: "POST",
+        body: orderData,
+      });
+      dispatch(getBasket());
+      // afterSuccessDoThis()
+      // console.log('success');
+    // } catch (error) {
+    //   afterFailDoThis()
+    //   console.log('failed');
+      return rejectWithValue("Something went wrong");
+    }catch(error){
+
+    }
+  }
+);
+
 export const addToBasket = createAsyncThunk(
   "basket/addToBasket",
   async (newItem, { dispatch, rejectWithValue }) => {
