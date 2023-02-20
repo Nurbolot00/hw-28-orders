@@ -1,7 +1,7 @@
 import React from 'react';
 import {Snackbar as MuiSnackbar} from '@mui/material';
 import { Alert } from "@mui/material";
-const Snackbar = ({isOpen, onClose,message,severity, autoHideDuration  }) => {
+const Snackbar = ({isOpen, onClose,message,severities, autoHideDuration  }) => {
     return (
         <MuiSnackbar
         open={isOpen}
@@ -10,7 +10,7 @@ const Snackbar = ({isOpen, onClose,message,severity, autoHideDuration  }) => {
         anchorOrigin={{vertical: 'top', horizontal: 'right'}}
         // action={() =>{}}
       >
-       <Alert onClose={onClose} severity={severity} sx={{ width: '100%' }}>
+       <Alert onClose={onClose} severity={severities} sx={{ width: '100%' }}>
           {message}
         </Alert>
       </MuiSnackbar>

@@ -12,13 +12,11 @@ import Snackbar  from "./components/UI/Snackbar";
 import { uiActions } from "./store/ui/uiSlice";
 
 
-
 function AppContent() {
   const dispatch = useDispatch();
   const [isBasketVisible, setBasketVisible] = useState(false);
 
   const snackbar  = useSelector((state) => state.ui.snackbar);
-  console.log(snackbar);
 
   const { sortDirection, changesetSortDirection, meals, isLoading, error } =
     useFoods();
@@ -26,9 +24,8 @@ function AppContent() {
     setBasketVisible((prevState) => !prevState);
   }, []);
   return (
-    <Provider store={store}>
+    <>
       <Header onShowBasket={showBasketHnadler} />
-
       <Summary />
       <Content>
         <select
@@ -40,14 +37,14 @@ function AppContent() {
         </select>
       </Content>
       <Meals meals={meals} isLoading={isLoading} error={error} />
-      {isBasketVisible && <Basket onClose={showBasketHnadler} />}
+      {isBasketVisible && <Basket onOpen={isBasketVisible} onClose={showBasketHnadler} />}
       <Snackbar
         isOpen={snackbar.isOpen}
         message={snackbar.message}
-        severity={snackbar.severity}
+        severities={snackbar.severity}
         onClose= {() => { dispatch(uiActions.closeSnackbar())}}
       />
-    </Provider>
+      </>
   );
 }
 

@@ -7,11 +7,11 @@ import {
   updateBasketItem,
 } from "../../store/meals/BasketSlice";
 import { uiActions } from "../../store/ui/uiSlice";
-import Modal from "../UI/Modal";
+import BasicModal from "../mui-modal/BasicModal";
 import BasketItem from "./BasketItem";
 import TotalAmount from "./TotalAmount";
 
-const Basket = ({ onClose }) => {
+const Basket = ({ onOpen, onClose }) => {
   const items = useSelector((state) => state.basket.items);
 
   const orderSubmitHandler = async () => {
@@ -62,13 +62,7 @@ const Basket = ({ onClose }) => {
   }, [items]);
   return (
     <>
-      {/* <Snackbar
-        isOpen={snackbarState.isOpen}
-        onClose={closeSnackbarHandler}
-        message={snackbarState.message}
-        severity={snackbarState.severity}
-      /> */}
-      <Modal onClose={onClose}>
+      <BasicModal onOpen={onOpen} onClose={onClose}>
         <StyledTotalContainer>
           <FiwedHeightContainer>
             {items.map((item) => {
@@ -91,7 +85,7 @@ const Basket = ({ onClose }) => {
             onOrder={orderSubmitHandler}
           />
         </StyledTotalContainer>
-      </Modal>
+        </BasicModal>
     </>
   );
 };

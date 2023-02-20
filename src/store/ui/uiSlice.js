@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState={
     snackbar: {
         isOpen: false,
-        severity: "",
+        severity: "info",
         message: "",
     }
 }
