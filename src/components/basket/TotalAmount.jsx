@@ -1,13 +1,13 @@
 import React, { memo, useMemo } from "react";
 import styled from "styled-components";
-import Button from "../UI/Button";
+import MuiButton from "../UI/MuiButton";
 
 const TotalAmount = ({ price, onClose, onOrder }) => {
   const orderButton =
     price > 0 ? (
-      <Button variant="contained" onClick={onOrder}>
+      <MuiButton variant="contained" onClick={onOrder}>
         Order
-      </Button>
+      </MuiButton>
     ) : null;
     const fixedPrice = useMemo(() => price.toFixed(2), [price])
     return (
@@ -17,9 +17,9 @@ const TotalAmount = ({ price, onClose, onOrder }) => {
         <StyledPrice>${fixedPrice}</StyledPrice>
       </StyledTiltleContainer>
       <ActionButtonsContainer>
-        <Button variant="outlined" onClick={onClose}>
+        <MuiButton variant="outlined" onClick={onClose}>
           Close
-        </Button>
+        </MuiButton>
         {orderButton}
       </ActionButtonsContainer>
     </div>

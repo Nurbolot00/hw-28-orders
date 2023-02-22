@@ -1,9 +1,11 @@
-import styled from "styled-components";
-import Button from "../../UI/Button";
+import styledComponents from "styled-components";
 import { useState } from "react";
 import { ReactComponent as PlusIcon } from "../../../assets/icons/plus-icon.svg";
 import { useDispatch } from "react-redux";
 import { addToBasket } from "../../../store/meals/BasketSlice";
+import { TextField } from "@mui/material";
+import styled from "@emotion/styled";
+import MuiButton from "../../UI/MuiButton";
 
 
 const MealItemForm = ({ id, price,title }) => {
@@ -28,21 +30,23 @@ const MealItemForm = ({ id, price,title }) => {
   return (
     <StyledForm onSubmit={submitHandler}>
       <Container>
-        <label htmlFor={id}>Amount</label>
-        <input
+        <label htmlFor={id}>Amount</label> 
+        <StyledTextField
+          id={id}
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          size='small'
           value={amount}
           onChange={amountChangeHandler}
-          type="number"
-          id={id}
-          min={1}
-          max={5}
-          defaultChecked={1}
         />
       </Container>
-      <Button>
+      {/* <Button>
         <StyledIcon />
         Add
-      </Button>
+      </Button> */}
+      <MuiButton variant="contained" onClick={submitHandler}><StyledIcon/>Add</MuiButton>
     </StyledForm>
   );
 };
@@ -50,7 +54,7 @@ const MealItemForm = ({ id, price,title }) => {
 export default MealItemForm;
 
 
-const Container = styled.div`
+const Container = styledComponents.div`
   margin-bottom: 10px;
   label {
     font-weight: 600;
@@ -72,12 +76,18 @@ const Container = styled.div`
   }
 `;
 
-const StyledForm = styled.form`
+const StyledForm = styledComponents.form`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
 `;
 
-const StyledIcon = styled(PlusIcon)`
+const StyledIcon = styledComponents(PlusIcon)`
   margin-right: 10px;
 `;
+
+const StyledTextField = styled(TextField)(() =>({
+  '&':{
+    width: '70px',
+  }
+}))

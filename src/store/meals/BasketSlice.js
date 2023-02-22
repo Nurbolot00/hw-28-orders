@@ -75,11 +75,6 @@ export const submitOrder = createAsyncThunk(
         body: orderData,
       });
       dispatch(getBasket());
-      // afterSuccessDoThis()
-      // console.log('success');
-    // } catch (error) {
-    //   afterFailDoThis()
-    //   console.log('failed');
       return rejectWithValue("Something went wrong");
     }catch(error){
 

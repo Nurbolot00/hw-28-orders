@@ -1,20 +1,69 @@
+import { Button } from "@mui/material";
 import { memo } from "react";
-import styled from "styled-components";
+import style from "styled-components";
+import { styled } from "@mui/material/styles";
 import { ReactComponent as BasketIcon } from "../../assets/icons/cart.svg";
 
 const BasketButton = ({ count, ...restProps }) => {
   return (
-    <StyledButton {...restProps}>
-      <BasketIcon />
-      <StyledTitle>Your cart</StyledTitle>
-      <CountStyled id="counter">{count || 0}</CountStyled>
-    </StyledButton>
+    <div>
+      <StyledBasketButton variant="contained" {...restProps}>
+        <BasketIcon /> <StyledTitle>Your cart</StyledTitle>
+        <CountStyled id="counter">{count || 0}</CountStyled>
+      </StyledBasketButton>
+    </div>
   );
 };
 
 export default memo(BasketButton);
 
-const StyledButton = styled.button`
+const StyledBasketButton = styled(Button)(() => ({
+  background: "#5a1f08" ,
+  padding: "10px 32px",
+  fontWeight: "600",
+  fontSize: "16px",
+  lineHeight: "24px",
+  color: 'white' ,
+  border: 'none',
+  borderRadius: '30px' ,
+  "&:hover": {
+    background: "#2c0d00",
+  },
+  "&:active": {
+    background: "#993108",
+  },
+  "&:disabled": {
+    background: "#CAC6C4",
+  },
+
+
+
+  
+
+ "&.bump" :{
+    animation: 'bump 300ms ease-out'
+  },
+
+  // @keyframes bump {
+  //   "0%" = {
+  //     transform: "scale(1)"
+  //   }
+  //  " 10%"= {
+  //     transform: "scale(0.9)"
+  //   }
+  //   "30%"= {
+  //     transform: "scale(1.1)"
+  //   }
+  //   "50%" ={
+  //     transform: "scale(1.15)"
+  //   }
+  //   "100%"= {
+  //     transform: "scale(1)"
+  //   }
+  // }
+}));
+
+const StyledButton = style.button`
   background: #5a1f08;
   border-radius: 30px;
   padding: 12px 32px;
@@ -59,11 +108,11 @@ const StyledButton = styled.button`
   }
 `;
 
-const StyledTitle = styled.span`
+const StyledTitle = style.span`
   margin-left: 12px;
   margin-right: 24px;
 `;
-const CountStyled = styled.span`
+const CountStyled = style.span`
   background: #8a2b06;
   border-radius: 30px;
   padding: 4px 20px;

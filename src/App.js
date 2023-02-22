@@ -6,10 +6,11 @@ import Meals from "./components/meals/Meals";
 import Summary from "./components/summary/Summary";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import { store } from "./store";
-import styled from "styled-components";
 import { useFoods } from "./components/hooks/useFoods";
 import Snackbar  from "./components/UI/Snackbar";
 import { uiActions } from "./store/ui/uiSlice";
+import { MenuItem, Select } from "@mui/material";
+import style from "@emotion/styled";
 
 
 function AppContent() {
@@ -23,18 +24,23 @@ function AppContent() {
   const showBasketHnadler = useCallback(() => {
     setBasketVisible((prevState) => !prevState);
   }, []);
+
   return (
     <>
       <Header onShowBasket={showBasketHnadler} />
       <Summary />
       <Content>
-        <select
-          onChange={(e) => changesetSortDirection(e.target.value)}
-          value={sortDirection}
-        >
-          <option value="ASC">cheaper</option>
-          <option value="DESC">more expensive</option>
-        </select>
+      <StyledSelect
+    labelId="demo-simple-select-label"
+    id="demo-simple-select"
+    value={sortDirection}
+    label="meals"
+    fullWidth
+    onChange={(e) => changesetSortDirection(e.target.value)}
+  >
+    <MenuItem value="ASC">Cheaper</MenuItem>
+    <MenuItem value='DESC'>more expensive</MenuItem>
+  </StyledSelect>
       </Content>
       <Meals meals={meals} isLoading={isLoading} error={error} />
       {isBasketVisible && <Basket onOpen={isBasketVisible} onClose={showBasketHnadler} />}
@@ -58,9 +64,21 @@ const App = () => {
 
 export default App;
 
-const Content = styled.div`
-  margin-top: 101px;
-`;
+// const Content = styled.div`
+//   margin-top: 101px;
+// `;
+
+const Content = style('div')(()=> ({
+  "&": {
+    marginTop: '101px'
+  }
+}))
+
+const StyledSelect = style(Select)(() =>({
+  '&':{
+    backgroundColor: 'white'
+  }
+}))
 
 // GET /foods
 
