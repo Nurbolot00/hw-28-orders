@@ -40,73 +40,30 @@ const StyledBasketButton = styled(Button)(() => ({
 
   
 
- "&.bump" :{
-    animation: 'bump 300ms ease-out'
+ 
+  "&.bump": {
+    animation: "bump 300ms ease-out",
   },
 
-  // @keyframes bump {
-  //   "0%" = {
-  //     transform: "scale(1)"
-  //   }
-  //  " 10%"= {
-  //     transform: "scale(0.9)"
-  //   }
-  //   "30%"= {
-  //     transform: "scale(1.1)"
-  //   }
-  //   "50%" ={
-  //     transform: "scale(1.15)"
-  //   }
-  //   "100%"= {
-  //     transform: "scale(1)"
-  //   }
-  // }
+  "@keyframes bump": {
+    "0%": {
+      transform: "scale(1)",
+    },
+    "10%": {
+      transform: "scale(0.9)",
+    },
+    "30%": {
+      transform: "scale(1.1)",
+    },
+    "50%": {
+      transform: "scale(1.15)",
+    },
+    "100%": {
+      transform: "scale(1)",
+    },
+  },
 }));
 
-const StyledButton = style.button`
-  background: #5a1f08;
-  border-radius: 30px;
-  padding: 12px 32px;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 24px;
-  color: white;
-  margin: 0;
-  border: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-
-  :hover {
-    background-color: #2c0d00;
-  }
-  :hover > #counter > {
-    background-color: #2c0d00;
-  }
-
-  &.bump {
-    animation: bump 300ms ease-out;
-  }
-
-  @keyframes bump {
-    0% {
-      transform: scale(1);
-    }
-    10% {
-      transform: scale(0.9);
-    }
-    30% {
-      transform: scale(1.1);
-    }
-    50% {
-      transform: scale(1.15);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-`;
 
 const StyledTitle = style.span`
   margin-left: 12px;
