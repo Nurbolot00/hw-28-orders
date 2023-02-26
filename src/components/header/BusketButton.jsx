@@ -7,7 +7,7 @@ import { ReactComponent as BasketIcon } from "../../assets/icons/cart.svg";
 const BasketButton = ({ count, ...restProps }) => {
   return (
     <div>
-      <StyledBasketButton variant="contained" {...restProps}>
+      <StyledBasketButton  variant="contained" {...restProps}>
         <BasketIcon /> <StyledTitle>Your cart</StyledTitle>
         <CountStyled id="counter">{count || 0}</CountStyled>
       </StyledBasketButton>
@@ -17,8 +17,8 @@ const BasketButton = ({ count, ...restProps }) => {
 
 export default memo(BasketButton);
 
-const StyledBasketButton = styled(Button)(() => ({
-  background: "#5a1f08" ,
+const StyledBasketButton = styled(Button)(({theme}) => ({
+  background: theme.palette.primary.dark ,
   padding: "10px 32px",
   fontWeight: "600",
   fontSize: "16px",
@@ -27,7 +27,7 @@ const StyledBasketButton = styled(Button)(() => ({
   border: 'none',
   borderRadius: '30px' ,
   "&:hover": {
-    background: "#2c0d00",
+    background: theme.palette.primary.dark,
   },
   "&:active": {
     background: "#993108",

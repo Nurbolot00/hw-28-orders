@@ -1,7 +1,12 @@
+import { Button } from "@mui/material";
 import { memo, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
+import styledComponents from "styled-components";
+
+import { styled } from "@mui/material/styles";
+
 import { getBasket } from "../../store/meals/BasketSlice";
+import { uiActions } from "../../store/ui/uiSlice";
 
 import BasketButton from "./BusketButton";
 
@@ -9,6 +14,8 @@ const Header = ({ onShowBasket }) => {
   const dispatch = useDispatch()
   const items = useSelector((state)=> state.basket.items)
   const [animationClass, setAnimationClass] = useState("");
+
+  const themeMode = useSelector(state => state.ui.themeMode)
 
 
   useEffect(()=>{
@@ -32,35 +39,63 @@ dispatch(getBasket())
       };
     }, 600);
   }, [items]);
+
+
+  const theme = themeMode ==="light" ? 'dark' : 'light' 
+  const themeChangeHandler = () =>{
+    dispatch(uiActions.changeTheme(theme))
+    console.log(theme);
+  }
+
   return (
-    <Container>
+    <StyledHeaderContainer >
       <Logo>ReactMeals</Logo>
+
+      <StyledInnerContrainer>
       <BasketButton
         onClick={onShowBasket}
         className={animationClass}
         count={calculateTotalAmount()}
       ></BasketButton>
-    </Container>
+       <StyledButton
+        variant="contained"
+        onClick={themeChangeHandler}
+        className={animationClass}
+        count={calculateTotalAmount()}
+        sx={{color: '#fff'}}
+      >{themeMode === 'light' ? 'Turn Dark Mode' : 'Turn Light Mode'}</StyledButton>
+      </StyledInnerContrainer>
+    </StyledHeaderContainer>
   );
 };
 
 export default memo(Header);
 
-const Container = styled.div`
-  width: 100%;
-  position: fixed;
-  top: 0;
-  z-index: 1;
-  height: 101px;
-  background-color: rgb(138, 43, 6);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-left: 120px;
-  padding-right: 120px;
-`;
+const StyledHeaderContainer = styled('nav')(({theme}) => ({
+  width: '100%',
+  position: 'fixed',
+  top: '0',
+  zIndex: '1',
+  height: '101px',
+  backgroundColor: theme.palette.primary.main,
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  paddingLeft: '120px',
+  paddingRight: '120px',
+}))
 
-const Logo = styled.p`
+const StyledInnerContrainer = styled('div')(({theme}) => ({
+  display: 'flex'
+
+}))
+
+const StyledButton = styled(Button)(({theme}) => ({
+  backgroundColor: theme.palette.primary.dark,
+  marginLeft: '3rem'
+}))
+
+const Logo = styledComponents.p`
   margin: 0;
   font-weight: 600;
   font-size: 38px;

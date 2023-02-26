@@ -4,7 +4,7 @@ import { ReactComponent as PlusIcon } from "../../../assets/icons/plus-icon.svg"
 import { useDispatch } from "react-redux";
 import { addToBasket } from "../../../store/meals/BasketSlice";
 import { TextField } from "@mui/material";
-import styled from "@emotion/styled";
+import { styled } from "@mui/material/styles";
 import MuiButton from "../../UI/MuiButton";
 
 
@@ -28,8 +28,8 @@ const MealItemForm = ({ id, price,title }) => {
     dispatch(addToBasket(basketItem))
   };
   return (
-    <StyledForm onSubmit={submitHandler}>
-      <Container>
+    <FormStyle onSubmit={submitHandler}>
+      <StyledContainer>
         <label htmlFor={id}>Amount</label> 
         <StyledTextField
           id={id}
@@ -41,53 +41,58 @@ const MealItemForm = ({ id, price,title }) => {
           value={amount}
           onChange={amountChangeHandler}
         />
-      </Container>
+      </StyledContainer>
       {/* <Button>
         <StyledIcon />
         Add
       </Button> */}
       <MuiButton variant="contained" onClick={submitHandler}><StyledIcon/>Add</MuiButton>
-    </StyledForm>
+    </FormStyle>
   );
 };
 
 export default MealItemForm;
 
 
-const Container = styledComponents.div`
-  margin-bottom: 10px;
-  label {
-    font-weight: 600;
-    font-size: 18px;
-    line-height: 27px;
-    color: #222;
-    margin-right: 20px;
+const StyledContainer = styled('form')(({theme}) =>({
+  marginBottom: '10px',
+  'label': {
+    fontWeight: "600",
+    fontSize: "18px",
+    lineHeight: "27px",
+    marginRight: "20px",
+  },
+ ' input': {
+    color: theme.palette.primary.contrastText,
+    width: '60px',
+    height: '32px',
+    border: '1px solid',
+    borderRadius: "6px",
+    outline: 'none',
+    padding: "4px 12px",
+    fontWeight: "500",
+    fontSize: '16px',
+    lineHeight: "24px",
   }
-  input {
-    width: 60px;
-    height: 32px;
-    border: 1px solid #d6d6d6;
-    border-radius: 6px;
-    outline: none;
-    padding: 4px 12px;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 24px;
-  }
-`;
 
-const StyledForm = styledComponents.form`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-`;
+}))
+
+
+const FormStyle = styled('form')(({theme}) =>({
+  color: theme.palette.primary.contrastText,
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-end',
+}))
+
 
 const StyledIcon = styledComponents(PlusIcon)`
   margin-right: 10px;
 `;
 
-const StyledTextField = styled(TextField)(() =>({
+const StyledTextField = styled(TextField)(({theme}) =>({
   '&':{
     width: '70px',
+    color: theme.palette.primary.contrastText
   }
 }))

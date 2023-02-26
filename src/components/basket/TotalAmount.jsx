@@ -1,5 +1,7 @@
 import React, { memo, useMemo } from "react";
-import styled from "styled-components";
+import styledComponents from "styled-components";
+
+import { styled } from "@mui/material/styles";
 import MuiButton from "../UI/MuiButton";
 
 const TotalAmount = ({ price, onClose, onOrder }) => {
@@ -28,29 +30,29 @@ const TotalAmount = ({ price, onClose, onOrder }) => {
 
 export default memo(TotalAmount);
 
-const StyledTitle = styled.p`
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 30px;
 
-  text-align: center;
+const StyledTitle = styled('p')(({theme}) => ({
+  fontWeight: '700',
+  fontSize: '20px',
+  lineHeight: '30px',
+  textAlign: 'center',
+  color: theme.palette.primary.contrastText
+}))
 
-  color: #222222;
-`;
-const StyledPrice = styled.p`
+const StyledPrice = styledComponents.p`
   font-weight: 600;
   font-size: 22px;
   line-height: 33px;
 
   color: #8a2b06;
 `;
-const StyledTiltleContainer = styled.div`
+const StyledTiltleContainer = styledComponents.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 0;
 `;
-const ActionButtonsContainer = styled.div`
+const ActionButtonsContainer = styledComponents.div`
   display: flex;
   justify-content: flex-end;
   margin-top: 24px;

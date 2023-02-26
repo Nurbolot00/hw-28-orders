@@ -1,10 +1,12 @@
 import { memo } from "react";
-import styled from "styled-components";
+import styledComponents from "styled-components";
 import MuiButton from "../UI/MuiButton";
+import { styled } from "@mui/material/styles";
+
 
 const BasketItem = ({ title, price, amount, dec, incrementAmount }) => {
   return (
-    <Container>
+    <StyledContainer>
       <Title>{title}</Title>
       <Content>
         <PriceAndAmount>
@@ -20,26 +22,26 @@ const BasketItem = ({ title, price, amount, dec, incrementAmount }) => {
           </MuiButton>
         </CounterContainer>
       </Content>
-    </Container>
+    </StyledContainer>
   );
 };
 
 export default memo(BasketItem);
 
-const Container = styled.div`
-  padding: 1.5rem 0;
-  width: 100%;
-`;
+const StyledContainer = styled('div')(({theme}) => ({
+  padding: '1.5rem 0',
+  width: "100%",
+  color: theme.palette.primary.contrastText
+}))
 
-const Title = styled.p`
+const Title = styledComponents.p`
   margin: 0 0 12px 0;
   font-weight: 600;
   font-size: 20px;
   line-height: 30px;
-  color: #222222;
 `;
 
-const Price = styled.p`
+const Price = styledComponents.p`
   font-weight: 600;
   font-size: 18px;
   line-height: 27px;
@@ -49,30 +51,29 @@ const Price = styled.p`
   margin: 0;
 `;
 
-const Amount = styled.span`
+const Amount = styledComponents.span`
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
-  color: #222222;
   display: block;
   padding: 4px 10px;
   border: 1px solid gray;
 `;
 
-const PriceAndAmount = styled.div`
+const PriceAndAmount = styledComponents.div`
   display: flex;
   align-items: center;
   width: 155px;
   justify-content: space-between;
 `;
 
-const CounterContainer = styled.div`
+const CounterContainer = styledComponents.div`
   gap: 14px;
   display: flex;
 `;
 
-const Content = styled.div`
+const Content = styledComponents.div`
   display: flex;
   justify-content: space-between;
   align-items: center;

@@ -1,34 +1,8 @@
 import React, { memo, useEffect, useState } from 'react';
-import styled from 'styled-components';
 import { fetchApi } from '../../lib/fetchApi';
 import MealItem from './meal-item/MealItem';
+import { styled } from "@mui/material/styles";
 
-// const DUMMY_MEALS = [
-//     {
-//         id: 1,
-//         title: "Sushi",
-//         description: 'finest fish and veggirs',
-//         price:  22.99
-//     },
-//     {
-//         id:2,
-//         title: "Pizza",
-//         description: 'finest fish and veggirs',
-//         price:  16.0
-//     },
-//     {
-//         id: 3,
-//         title: "Barbecue",
-//         description: 'finest fish and veggirs',
-//         price:  12.99
-//     },
-//     {
-//         id: 4,
-//         title: "Green Bowl",
-//         description: 'finest fish and veggirs',
-//         price:  19.99
-//     }
-// ]
 
 const Meals = () => {
 
@@ -56,23 +30,25 @@ const Meals = () => {
     },[])
 
     return (
-        <Card >
+        <StyledCard >
             {isLoading && !error && <p>LOADING........</p>}
             {error &&  <p style={{color: 'red'}}>{error}</p>}
             {meals.map((meal,index) => {
                 return <MealItem key={index}  meal={meal}/>
             })}
-            </Card>
+            </StyledCard>
        
     );
 };
 
 export default memo(Meals);
 
-const Card = styled.div`
-background: #FFFFFF;
-border-radius: 16px;
-width: 75%;
-margin: 40px auto;
-padding: 40px;
-`
+
+const StyledCard = styled('div')(({theme}) => ({
+    backgroundColor: theme.palette.primary.light,
+    borderRadius: '16px',
+    width: '75%',
+    margin: '40px auto',
+    padding: '40px',
+    color: theme.palette.primary.contrastText
+  }))

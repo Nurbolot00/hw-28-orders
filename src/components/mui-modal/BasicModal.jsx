@@ -2,6 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 
+
 const style = {
   position: 'absolute',
   top: '50%',
@@ -12,14 +13,12 @@ const style = {
   border: '2px solid #000',
   boxShadow: 24,
   p: 2,
-  borderRadius: '14px'
+  borderRadius: '20px'
 };
 
 export default function BasicModal({onOpen, onClose, children}) {
 
-
   return (
-    // <div>
       <Modal
         open={onOpen}
         onClose={onClose}
@@ -30,6 +29,6 @@ export default function BasicModal({onOpen, onClose, children}) {
           {children}
         </Box>
       </Modal>
-    // </div>
   );
 }
+

@@ -1,5 +1,6 @@
 import { memo } from "react";
-import styled from "styled-components";
+import styledComponents from "styled-components";
+import { styled } from "@mui/material/styles";
 import MealItemForm from "./MealItemForm";
 
 const MealItem = ({ meal }) => {
@@ -7,11 +8,11 @@ const MealItem = ({ meal }) => {
 
   return (
     <Container>
-      <StyledItemInfo>
+      <StyledInfoContainer>
         <Styledtitle>{meal.title}</Styledtitle>
         <p>{meal.description}</p>
         <span>${meal.price}</span>
-      </StyledItemInfo>
+      </StyledInfoContainer>
       <MealItemForm price={meal.price} title={meal.title} id={meal._id} />
     </Container>
   );
@@ -19,7 +20,27 @@ const MealItem = ({ meal }) => {
 
 export default memo(MealItem);
 
-const Container = styled.li`
+const StyledInfoContainer = styled('div')(({theme}) => ({
+  marginBottom: '2.25px',
+
+  'p':{
+    fontStyle: 'italic',
+    fontWeight: '400',
+    fontSize: '16px',
+    lineHeight: '24px',
+    margin: '5px 0px',
+  },
+  
+  "span" : {
+    fontWeight: '700',
+    fontSize: '20px',
+    lineHeight: '30px',
+    color: theme.palette.primary.main
+  }
+  
+}))
+
+const Container = styledComponents.li`
   list-style: none;
   display: flex;
   justify-content: space-between;
@@ -34,25 +55,7 @@ const Container = styled.li`
   }
 `;
 
-const StyledItemInfo = styled.div`
-  margin-bottom: 2.25px;
-  margin-bottom: 0;
-
-  p {
-    font-style: italic;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-    margin: 5px 0px;
-  }
-  span {
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 30px;
-    color: #ad5502;
-  }
-`;
-const Styledtitle = styled.h4`
+const Styledtitle = styledComponents.h4`
   font-weight: 600;
   font-size: 18px;
   line-height: 27px;

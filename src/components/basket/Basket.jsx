@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
+import styledComponents from "styled-components";
+import { styled } from "@mui/material/styles";
 import {
   deleteBasketItem,
   submitOrder,
@@ -63,7 +64,7 @@ const Basket = ({ onOpen, onClose }) => {
   return (
     <>
       <BasicModal onOpen={onOpen} onClose={onClose}>
-        <StyledTotalContainer>
+        <StyledContainer>
           <FiwedHeightContainer>
             {items.map((item) => {
               return (
@@ -84,7 +85,7 @@ const Basket = ({ onOpen, onClose }) => {
             onClose={onClose}
             onOrder={orderSubmitHandler}
           />
-        </StyledTotalContainer>
+        </StyledContainer>
         </BasicModal>
     </>
   );
@@ -92,12 +93,16 @@ const Basket = ({ onOpen, onClose }) => {
 
 export default Basket;
 
-const StyledTotalContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  padding: 1.5rem 1rem;
-`;
-const FiwedHeightContainer = styled.div`
+
+const FiwedHeightContainer = styledComponents.div`
   max-height: 228px;
   overflow-y: scroll;
 `;
+
+
+const StyledContainer = styled('div')(({theme}) => ({
+  backgroundColor: theme.palette.primary.light,
+  width: '100%',
+  height: '100%',
+  padding: '1.5rem 2rem',
+}))
