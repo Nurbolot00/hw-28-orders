@@ -1,11 +1,10 @@
-import { memo } from "react";
-import styledComponents from "styled-components";
-import { styled } from "@mui/material/styles";
-import MealItemForm from "./MealItemForm";
+/* eslint-disable no-underscore-dangle */
+import { memo } from 'react'
+import styledComponents from 'styled-components'
+import { styled } from '@mui/material/styles'
+import MealItemForm from './MealItemForm'
 
 const MealItem = ({ meal }) => {
-
-
   return (
     <Container>
       <StyledInfoContainer>
@@ -15,29 +14,28 @@ const MealItem = ({ meal }) => {
       </StyledInfoContainer>
       <MealItemForm price={meal.price} title={meal.title} id={meal._id} />
     </Container>
-  );
-};
+  )
+}
 
-export default memo(MealItem);
+export default memo(MealItem)
 
-const StyledInfoContainer = styled('div')(({theme}) => ({
+const StyledInfoContainer = styled('div')(({ theme }) => ({
   marginBottom: '2.25px',
 
-  'p':{
+  p: {
     fontStyle: 'italic',
     fontWeight: '400',
     fontSize: '16px',
     lineHeight: '24px',
     margin: '5px 0px',
   },
-  
-  "span" : {
+
+  span: {
     fontWeight: '700',
     fontSize: '20px',
     lineHeight: '30px',
-    color: theme.palette.primary.main
-  }
-  
+    color: theme.palette.primary.main,
+  },
 }))
 
 const Container = styledComponents.li`
@@ -53,11 +51,11 @@ const Container = styledComponents.li`
     border: none;
     margin-bottom: 0;
   }
-`;
+`
 
 const Styledtitle = styledComponents.h4`
   font-weight: 600;
   font-size: 18px;
   line-height: 27px;
   margin: 0;
-`;
+`

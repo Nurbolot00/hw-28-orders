@@ -1,8 +1,8 @@
-import React, { memo, useMemo } from "react";
-import styledComponents from "styled-components";
+import React, { memo, useMemo } from 'react'
+import styledComponents from 'styled-components'
 
-import { styled } from "@mui/material/styles";
-import MuiButton from "../UI/MuiButton";
+import { styled } from '@mui/material/styles'
+import MuiButton from '../UI/MuiButton'
 
 const TotalAmount = ({ price, onClose, onOrder }) => {
   const orderButton =
@@ -10,9 +10,9 @@ const TotalAmount = ({ price, onClose, onOrder }) => {
       <MuiButton variant="contained" onClick={onOrder}>
         Order
       </MuiButton>
-    ) : null;
-    const fixedPrice = useMemo(() => price.toFixed(2), [price])
-    return (
+    ) : null
+  const fixedPrice = useMemo(() => price.toFixed(2), [price])
+  return (
     <div>
       <StyledTiltleContainer>
         <StyledTitle>Total Amount</StyledTitle>
@@ -25,18 +25,17 @@ const TotalAmount = ({ price, onClose, onOrder }) => {
         {orderButton}
       </ActionButtonsContainer>
     </div>
-  );
-};
+  )
+}
 
-export default memo(TotalAmount);
+export default memo(TotalAmount)
 
-
-const StyledTitle = styled('p')(({theme}) => ({
+const StyledTitle = styled('p')(({ theme }) => ({
   fontWeight: '700',
   fontSize: '20px',
   lineHeight: '30px',
   textAlign: 'center',
-  color: theme.palette.primary.contrastText
+  color: theme.palette.primary.contrastText,
 }))
 
 const StyledPrice = styledComponents.p`
@@ -45,16 +44,16 @@ const StyledPrice = styledComponents.p`
   line-height: 33px;
 
   color: #8a2b06;
-`;
+`
 const StyledTiltleContainer = styledComponents.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 0;
-`;
+`
 const ActionButtonsContainer = styledComponents.div`
   display: flex;
   justify-content: flex-end;
   margin-top: 24px;
   gap: 1rem;
-`;
+`

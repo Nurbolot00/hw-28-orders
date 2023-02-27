@@ -1,31 +1,31 @@
-import { useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getMeals } from "../../store/meals/MealsSlice";
+import { useEffect, useMemo, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getMeals } from '../../store/meals/meals.thunks'
 
 export const useFoods = () => {
-  const dispatch = useDispatch();
-  const [sortDirection, setSortDirection] = useState("ASC");
-  const { meals =[], isLoading, error } = useSelector((state) => state.meals);
+  const dispatch = useDispatch()
+  const [sortDirection, setSortDirection] = useState('ASC')
+  const { meals = [], isLoading, error } = useSelector((state) => state.meals)
   //   console.log(isLoading);
 
   useEffect(() => {
-    dispatch(getMeals());
-  }, [dispatch]);
+    dispatch(getMeals())
+  }, [dispatch])
 
   const changesetSortDirection = (dir) => {
-    setSortDirection(dir);
-  };
+    setSortDirection(dir)
+  }
 
   const sortedMeals = useMemo(() => {
-    const norSorted = [...meals];
+    const norSorted = [...meals]
 
     return norSorted.sort((a, b) => {
-      if (sortDirection === "ASC") {
-        return a.price - b.price;
+      if (sortDirection === 'ASC') {
+        return a.price - b.price
       }
-      return b.price - a.price;
-    });
-  }, [sortDirection, meals]);
+      return b.price - a.price
+    })
+  }, [sortDirection, meals])
 
   return {
     meals: sortedMeals,
@@ -33,5 +33,5 @@ export const useFoods = () => {
     changesetSortDirection,
     isLoading,
     error,
-  };
-};
+  }
+}

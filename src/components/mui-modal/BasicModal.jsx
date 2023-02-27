@@ -1,7 +1,6 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-
+import * as React from 'react'
+import Box from '@mui/material/Box'
+import Modal from '@mui/material/Modal'
 
 const style = {
   position: 'absolute',
@@ -13,22 +12,18 @@ const style = {
   border: '2px solid #000',
   boxShadow: 24,
   p: 2,
-  borderRadius: '20px'
-};
-
-export default function BasicModal({onOpen, onClose, children}) {
-
-  return (
-      <Modal
-        open={onOpen}
-        onClose={onClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          {children}
-        </Box>
-      </Modal>
-  );
+  borderRadius: '20px',
 }
 
+export default function BasicModal({ onOpen, onClose, children }) {
+  return (
+    <Modal
+      open={onOpen}
+      onClose={onClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box sx={style}>{children}</Box>
+    </Modal>
+  )
+}

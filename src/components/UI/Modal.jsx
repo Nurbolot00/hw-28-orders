@@ -1,6 +1,6 @@
-import React from "react";
-import { createPortal } from "react-dom";
-import styled from "styled-components";
+import React from 'react'
+import { createPortal } from 'react-dom'
+import styled from 'styled-components'
 
 const StyledBackDrop = styled.div`
   position: fixed;
@@ -10,11 +10,11 @@ const StyledBackDrop = styled.div`
   height: 100vh;
   z-index: 20;
   background-color: rgba(0, 0, 0, 0.75);
-`;
+`
 
 const BackDrop = ({ onClose }) => {
-  return <StyledBackDrop onClick={onClose} />;
-};
+  return <StyledBackDrop onClick={onClose} />
+}
 
 const StyledModalContent = styled.div`
   position: fixed;
@@ -38,25 +38,25 @@ const StyledModalContent = styled.div`
       transform: translateY(0);
     }
   }
-`;
+`
 
 const ModalContent = ({ children }) => {
-  return <StyledModalContent>{children}</StyledModalContent>;
-};
+  return <StyledModalContent>{children}</StyledModalContent>
+}
 
 const Modal = ({ children, onClose }) => {
   return (
     <>
       {createPortal(
         <BackDrop onClick={onClose} />,
-        document.getElementById("backdrop")
+        document.getElementById('backdrop')
       )}
       {createPortal(
         <ModalContent>{children}</ModalContent>,
-        document.getElementById("modal-overlay")
+        document.getElementById('modal-overlay')
       )}
     </>
-  );
-};
+  )
+}
 
-export default Modal;
+export default Modal

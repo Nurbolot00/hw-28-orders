@@ -1,54 +1,48 @@
-import React, { memo, useEffect, useState } from 'react';
-import { fetchApi } from '../../lib/fetchApi';
-import MealItem from './meal-item/MealItem';
-import { styled } from "@mui/material/styles";
-
+import React, { memo, useEffect, useState } from 'react'
+import { styled } from '@mui/material/styles'
+import { fetchApi } from '../../lib/fetchApi'
+import MealItem from './meal-item/MealItem'
 
 const Meals = () => {
+  const [meals, setMeals] = useState([])
+  const [error, setError] = useState('')
+  const [isLoading, setLoading] = useState(false)
 
-    const [meals,setMeals] = useState([])
-    const [error,setError] = useState('')
-    const [isLoading,setLoading] = useState(false)
- 
-    const getMeals = async() =>{
-        try{
-            setLoading(true)
-       const response =  await fetchApi('foods')
-       console.log(response.data);
+  const getMeals = async () => {
+    try {
+      setLoading(true)
+      const response = await fetchApi('foods')
 
-       setMeals(response.data)
-       
-        }catch(error){
-            console.log(error);
-            setError("failed to Load meals")
-        }
-        setLoading(false)
+      setMeals(response.data)
+    } catch {
+      setError('failed to Load meals')
     }
+    setLoading(false)
+  }
 
-    useEffect(() =>{   
-        getMeals()  
-    },[])
+  useEffect(() => {
+    getMeals()
+  }, [])
 
-    return (
-        <StyledCard >
-            {isLoading && !error && <p>LOADING........</p>}
-            {error &&  <p style={{color: 'red'}}>{error}</p>}
-            {meals.map((meal,index) => {
-                return <MealItem key={index}  meal={meal}/>
-            })}
-            </StyledCard>
-       
-    );
-};
+  return (
+    <StyledCard>
+      {isLoading && !error && <p>LOADING........</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {meals.map((meal) => {
+        // eslint-disable-next-line no-underscore-dangle
+        return <MealItem key={meal._id} meal={meal} />
+      })}
+    </StyledCard>
+  )
+}
 
-export default memo(Meals);
+export default memo(Meals)
 
-
-const StyledCard = styled('div')(({theme}) => ({
-    backgroundColor: theme.palette.primary.light,
-    borderRadius: '16px',
-    width: '75%',
-    margin: '40px auto',
-    padding: '40px',
-    color: theme.palette.primary.contrastText
-  }))
+const StyledCard = styled('div')(({ theme }) => ({
+  backgroundColor: theme.palette.primary.light,
+  borderRadius: '16px',
+  width: '75%',
+  margin: '40px auto',
+  padding: '40px',
+  color: theme.palette.primary.contrastText,
+}))
