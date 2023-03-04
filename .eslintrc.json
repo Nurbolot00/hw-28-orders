@@ -20,11 +20,13 @@
   },
   "plugins": ["react"],
   "rules": {
-    "prettier/prettier": "error",
+    "prettier/prettier": "off",
     "react/function-component-definition": "off",
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
     "react/jsx-props-no-spreading": "off",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "react/self-closing-comp": "off",
+    "import/newline-after-import": "off"
   }
 }
