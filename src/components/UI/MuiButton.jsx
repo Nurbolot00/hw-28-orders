@@ -33,7 +33,9 @@ const getBorderRadius = (borderStyle) => {
   return borderStyle === 'rounded' ? '20px' : '6px'
 }
 
-const StyledButton = styled(Button)(({ borderStyle, variant }) => ({
+const StyledButton = styled(Button,{
+  shouldForwardProp: (propsName) => propsName !== 'borderStyle'
+})(({ borderStyle, variant }) => ({
   background: getBackgroundColor(variant),
   padding: '10px 32px',
   fontWeight: '600',

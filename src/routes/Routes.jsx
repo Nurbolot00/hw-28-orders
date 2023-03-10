@@ -1,16 +1,21 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
-import  { Route, Routes } from 'react-router-dom'
+import { Routes as Router, Route } from 'react-router-dom'
+import UserLayout from '../layout/UserLayout'
+import MealsPage from '../pages/Meals.page'
+import SignUp from '../pages/SignUp.page'
+import SignIn from '../pages/SignIn.page'
 
-const AppRoutes = () => {
+const Routes = () => {
     return (
-        <Routes>
-            <Route>
-                <Route/>
+        <Router>
+            <Route path="/" element={<UserLayout />}>
+                <Route index element={<MealsPage />} />
+                <Route path="signup" element={<SignUp />} />
+                <Route path="signin" element={<SignIn />} />
             </Route>
+        </Router>
+    )
+}
 
-        </Routes>
-    );
-};
-
-export default AppRoutes;
+export default Routes

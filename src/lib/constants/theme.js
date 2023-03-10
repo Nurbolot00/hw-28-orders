@@ -31,7 +31,7 @@ export const lightTheme = {
     fontFamily: 'Roboto',
     fontSize: 14,
   },
-  spacing: {},
+
 }
 
 export const darkTheme = {
@@ -65,7 +65,6 @@ export const darkTheme = {
     fontFamily: 'Roboto',
     fontSize: 14,
   },
-  spacing: {},
 }
 
 export const getTheme = () => {

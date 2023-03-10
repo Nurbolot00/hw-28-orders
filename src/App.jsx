@@ -1,30 +1,21 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import './App.css'
 import { Provider, useDispatch, useSelector } from 'react-redux'
-import { createTheme, MenuItem, Select, ThemeProvider } from '@mui/material'
-import style from '@emotion/styled'
-import Basket from './components/basket/Basket'
-import Header from './components/header/Header'
-import Meals from './components/meals/Meals'
-import Summary from './components/summary/Summary'
+import { createTheme, ThemeProvider } from '@mui/material'
+import { HashRouter } from 'react-router-dom'
 import { store } from './store'
-import { useFoods } from './components/hooks/useFoods'
 import Snackbar from './components/UI/Snackbar'
 import { uiActions } from './store/ui/ui.slice'
 import { darkTheme, lightTheme } from './lib/constants/theme'
+import Routes from './routes/Routes'
 
 function AppContent() {
   const dispatch = useDispatch()
-  const [isBasketVisible, setBasketVisible] = useState(false)
 
   const snackbar = useSelector((state) => state.ui.snackbar)
   const themeMode = useSelector((state) => state.ui.themeMode)
 
-  const { sortDirection, changesetSortDirection, meals, isLoading, error } =
-    useFoods()
-  const showBasketHnadler = useCallback(() => {
-    setBasketVisible((prevState) => !prevState)
-  }, [])
+
 
   const theme = useMemo(() => {
     const currentTheme =
@@ -39,25 +30,8 @@ function AppContent() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Header onShowBasket={showBasketHnadler} />
-      <Summary />
-      <Content>
-        <StyledSelect
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={sortDirection}
-          label="meals"
-          fullWidth
-          onChange={(e) => changesetSortDirection(e.target.value)}
-        >
-          <MenuItem value="ASC">Cheaper</MenuItem>
-          <MenuItem value="DESC">more expensive</MenuItem>
-        </StyledSelect>
-      </Content>
-      <Meals meals={meals} isLoading={isLoading} error={error} />
-      {isBasketVisible && (
-        <Basket onOpen={isBasketVisible} onClose={showBasketHnadler} />
-      )}
+      {/* <Header onShowBasket={showBasketHnadler} /> */}
+     
       <Snackbar
         isOpen={snackbar.isOpen}
         message={snackbar.message}
@@ -66,15 +40,18 @@ function AppContent() {
           dispatch(uiActions.closeSnackbar())
         }}
       />
+      <Routes/>
     </ThemeProvider>
   )
 }
 
 const App = () => {
   return (
+    <HashRouter>
     <Provider store={store}>
       <AppContent />
     </Provider>
+    </HashRouter>
   )
 }
 
@@ -84,18 +61,7 @@ export default App
 //   margin-top: 101px;
 // `;
 
-const Content = style('div')(() => ({
-  '&': {
-    marginTop: '101px',
-  },
-}))
 
-const StyledSelect = style(Select)(({ theme }) => ({
-  '&': {
-    backgroundColor: theme.palette.primary.light,
-    color: theme.palette.primary.contrasText,
-  },
-}))
 
 // GET /foods
 

@@ -92,8 +92,7 @@ export const basketSlice = createSlice({
       state.isLoading = true
     })
 
-    builder.addCase(getBasket.rejected, (state, action) => {
-      state.items = action.payload
+    builder.addCase(getBasket.rejected, (state) => {
       state.isLoading = false
     })
   },

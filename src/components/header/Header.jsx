@@ -3,14 +3,16 @@ import { memo, useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styledComponents from 'styled-components'
 import { styled } from '@mui/material/styles'
-
+import { useNavigate } from 'react-router-dom'
 import { getBasket } from '../../store/meals/basket.slice'
 import { uiActions } from '../../store/ui/ui.slice'
 
 import BasketButton from './BusketButton'
 
 const Header = ({ onShowBasket }) => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
+  const isAuthorized = useSelector((state) => state.auth.isAuthorized)
   const items = useSelector((state) => state.basket.items)
   const [animationClass, setAnimationClass] = useState('')
 
@@ -43,6 +45,14 @@ const Header = ({ onShowBasket }) => {
     dispatch(uiActions.changeTheme(theme))
   }
 
+  const signOutHandler = () => {
+    navigate('/signin')
+}
+
+const signInHandler = () => {
+    navigate('/signin')
+}
+
   return (
     <StyledHeaderContainer>
       <Logo>ReactMeals</Logo>
@@ -62,6 +72,12 @@ const Header = ({ onShowBasket }) => {
         >
           {themeMode === 'light' ? 'Turn Dark Mode' : 'Turn Light Mode'}
         </StyledButton>
+
+        {isAuthorized ? (
+                <Button sx={{color: '#fff'}} onClick={signOutHandler}>Sign Out</Button>
+            ) : (
+                <Button sx={{color: '#fff'}} onClick={signInHandler}>Sign In</Button>
+            )}        
       </StyledInnerContrainer>
     </StyledHeaderContainer>
   )
@@ -85,6 +101,7 @@ const StyledHeaderContainer = styled('nav')(({ theme }) => ({
 
 const StyledInnerContrainer = styled('div')(() => ({
   display: 'flex',
+  justifyContent: 'space-around'
 }))
 
 const StyledButton = styled(Button)(({ theme }) => ({
