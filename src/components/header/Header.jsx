@@ -3,11 +3,12 @@ import { memo, useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styledComponents from 'styled-components'
 import { styled } from '@mui/material/styles'
-import { useNavigate } from 'react-router-dom'
+import {  Link, useNavigate } from 'react-router-dom'
 import { getBasket } from '../../store/meals/basket.slice'
 import { uiActions } from '../../store/ui/ui.slice'
 
 import BasketButton from './BusketButton'
+import { signOut } from '../../store/auth/auth.thunk'
 
 const Header = ({ onShowBasket }) => {
   const navigate = useNavigate()
@@ -46,6 +47,7 @@ const Header = ({ onShowBasket }) => {
   }
 
   const signOutHandler = () => {
+    dispatch(signOut())
     navigate('/signin')
 }
 
@@ -55,7 +57,7 @@ const signInHandler = () => {
 
   return (
     <StyledHeaderContainer>
-      <Logo>ReactMeals</Logo>
+       <Link to='/'><Logo>ReactMeals</Logo></Link>
 
       <StyledInnerContrainer>
         <BasketButton

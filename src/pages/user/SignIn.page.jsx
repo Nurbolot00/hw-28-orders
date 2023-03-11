@@ -5,8 +5,8 @@ import { useFormik } from 'formik'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import Button from '../components/UI/Button'
-import { signIn } from '../store/auth/auth.thunk'
+import Button from '../../components/UI/Button'
+import { signIn } from '../../store/auth/auth.thunk'
 
 const SignIn = () => {
   const dispatch = useDispatch()

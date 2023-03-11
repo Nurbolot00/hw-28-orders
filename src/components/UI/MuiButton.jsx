@@ -37,6 +37,7 @@ const StyledButton = styled(Button,{
   shouldForwardProp: (propsName) => propsName !== 'borderStyle'
 })(({ borderStyle, variant }) => ({
   background: getBackgroundColor(variant),
+  margin: '1rem',
   padding: '10px 32px',
   fontWeight: '600',
   fontSize: '16px',

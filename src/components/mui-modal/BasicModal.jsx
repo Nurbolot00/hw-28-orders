@@ -1,6 +1,5 @@
 import * as React from 'react'
-import Box from '@mui/material/Box'
-import Modal from '@mui/material/Modal'
+import { Box, Modal } from '@mui/material'
 
 const style = {
   position: 'absolute',
@@ -11,7 +10,7 @@ const style = {
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
-  p: 2,
+  p: 4,
   borderRadius: '20px',
 }
 

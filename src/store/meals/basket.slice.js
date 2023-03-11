@@ -1,6 +1,10 @@
 /* eslint-disable consistent-return */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { addToBasketRequest, deleteBasketItemRequest, getBasketRequest } from '../../api/mealsService'
+import {
+  addToBasketRequest,
+  deleteBasketItemRequest,
+  getBasketRequest,
+} from '../../api/basketService'
 
 export const basketActionTypes = {
   ADD_ITEM_SUCCESS: ' ADD_ITEM_SUCCESS',
@@ -99,7 +103,6 @@ export const basketSlice = createSlice({
 })
 
 export const basketActions = basketSlice.actions
-
 
 export const submitOrder = createAsyncThunk(
   'basket/addToBasket',

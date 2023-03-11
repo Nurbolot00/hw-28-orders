@@ -28,6 +28,7 @@
     "import/prefer-default-export": "off",
     "react/self-closing-comp": "off",
     "import/newline-after-import": "off",
-    "import/no-extraneous-dependencies": "off"
+    "import/no-extraneous-dependencies": "off",
+    "import/no-cycle": "off"
   }
 }

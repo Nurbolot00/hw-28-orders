@@ -3,7 +3,7 @@ import './App.css'
 import { Provider, useDispatch, useSelector } from 'react-redux'
 import { createTheme, ThemeProvider } from '@mui/material'
 import { HashRouter } from 'react-router-dom'
-import { store } from './store'
+import { store } from './store/store'
 import Snackbar from './components/UI/Snackbar'
 import { uiActions } from './store/ui/ui.slice'
 import { darkTheme, lightTheme } from './lib/constants/theme'
@@ -14,8 +14,6 @@ function AppContent() {
 
   const snackbar = useSelector((state) => state.ui.snackbar)
   const themeMode = useSelector((state) => state.ui.themeMode)
-
-
 
   const theme = useMemo(() => {
     const currentTheme =
@@ -31,7 +29,7 @@ function AppContent() {
   return (
     <ThemeProvider theme={theme}>
       {/* <Header onShowBasket={showBasketHnadler} /> */}
-     
+
       <Snackbar
         isOpen={snackbar.isOpen}
         message={snackbar.message}
@@ -40,7 +38,7 @@ function AppContent() {
           dispatch(uiActions.closeSnackbar())
         }}
       />
-      <Routes/>
+      <Routes />
     </ThemeProvider>
   )
 }
@@ -48,9 +46,9 @@ function AppContent() {
 const App = () => {
   return (
     <HashRouter>
-    <Provider store={store}>
-      <AppContent />
-    </Provider>
+      <Provider store={store}>
+        <AppContent />
+      </Provider>
     </HashRouter>
   )
 }
@@ -60,8 +58,6 @@ export default App
 // const Content = styled.div`
 //   margin-top: 101px;
 // `;
-
-
 
 // GET /foods
 

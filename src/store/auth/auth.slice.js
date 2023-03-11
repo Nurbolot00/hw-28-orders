@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import userRoles, { STORAGE_KEYS } from '../../lib/constants/common'
-import signUp, { signIn } from './auth.thunk'
+import signUp, { signIn, signOut } from './auth.thunk'
 
 const getInitialState = () => {
     const jsonData = localStorage.getItem(STORAGE_KEYS.AUTH)
@@ -51,6 +51,17 @@ const authSlice = createSlice({
                 name: payload.user.name,
                 email: payload.user.email,
                 role: payload.user.role,
+            }
+        })
+
+        builder.addCase(signOut.fulfilled, (state) => {
+            state.isAuthorized = false
+            state.token = ''
+
+            state.user = {
+                name: '',
+                email:  '',
+                role: userRoles.GUEST,
             }
         })
 

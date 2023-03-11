@@ -1,6 +1,8 @@
 /* eslint-disable prettier/prettier */
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { getMealsRequest } from '../../api/mealsService'
+import { getMealsRequest } from '../../api/basketService'
+import { addMealRequest } from '../../api/mealsService'
+import { mealsAdmin } from '../admin-meals/adminMeals.thunk'
 // import { fetchApi } from '../../lib/fetchApi'
 // eslint-disable-next-line import/no-cycle
 import { mealsSlice } from './index'
@@ -16,5 +18,20 @@ export const getMeals = createAsyncThunk(
     } catch (error) {
       return rejectWithValue('something went wrong')
     }
+  }
+)
+
+
+export const addMeals = createAsyncThunk(
+  'meals/addMeals',
+  async (payload, { rejectWithValue, getState, dispatch }) => {
+      try {
+          const { token } = getState().auth
+          const { data } = await addMealRequest(token, payload)
+          dispatch(mealsAdmin())
+          return data.data
+      } catch (error) {
+          return rejectWithValue(error)
+      }
   }
 )

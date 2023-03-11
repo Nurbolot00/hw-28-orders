@@ -1,4 +1,4 @@
-import { store } from '../../store'
+import { store } from '../../store/store'
 
 export const lightTheme = {
   palette: {
@@ -31,7 +31,6 @@ export const lightTheme = {
     fontFamily: 'Roboto',
     fontSize: 14,
   },
-
 }
 
 export const darkTheme = {
