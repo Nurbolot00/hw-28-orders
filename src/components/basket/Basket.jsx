@@ -52,7 +52,7 @@ const Basket = ({ onOpen, onClose }) => {
   const dec = useCallback(
     (id, amount) => {
       if (amount > 1) {
-        dispatch(updateBasketItem({ amount: amount - 1, id }))
+        dispatch(updateBasketItem({ id, amount: amount - 1 }))
       } else {
         dispatch(deleteBasketItem(id))
       }
@@ -62,7 +62,7 @@ const Basket = ({ onOpen, onClose }) => {
 
   const incrementAmount = useCallback(
     (id, amount) => {
-      dispatch(updateBasketItem({ amount: amount + 1, id }))
+      dispatch(updateBasketItem({ id, amount: amount + 1}))
     },
     [dispatch]
   )

@@ -61,6 +61,7 @@ export const updateBasketItem = createAsyncThunk(
   async ({ id, amount }, { dispatch, rejectWithValue }) => {
     try {
       await updateBasketItem(id, amount)
+      
       dispatch(getBasket())
     } catch (error) {
       return rejectWithValue('Something went wrong')
