@@ -1,16 +1,19 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import styledComponents from 'styled-components'
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { TextField } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { addToBasket } from '../../../store/meals/basket.slice'
 import { ReactComponent as PlusIcon } from '../../../assets/icons/plus-icon.svg'
 import MuiButton from '../../UI/MuiButton'
+import { withAuthModal } from '../../hoc/withAuthModal'
 
-const MealItemForm = ({ id, price, title }) => {
+const MealItemForm = ({ id, price, title , showAuthModal }) => {
   const dispatch = useDispatch()
   const [amount, setAmount] = useState(1)
+
+  const isAuthorized = useSelector((state) => state.auth.isAuthorized)
 
   const amountChangeHandler = (event) => {
     setAmount(+event.target.value)
@@ -18,6 +21,10 @@ const MealItemForm = ({ id, price, title }) => {
 
   const submitHandler = (event) => {
     event.preventDefault()
+
+    if(!isAuthorized){
+      showAuthModal()
+    }
 
     const basketItem = {
       id,
@@ -42,10 +49,7 @@ const MealItemForm = ({ id, price, title }) => {
           onChange={amountChangeHandler}
         />
       </StyledContainer>
-      {/* <Button>
-        <StyledIcon />
-        Add
-      </Button> */}
+
       <MuiButton variant="contained" onClick={submitHandler}>
         <StyledIcon />
         Add
@@ -54,7 +58,7 @@ const MealItemForm = ({ id, price, title }) => {
   )
 }
 
-export default MealItemForm
+export default withAuthModal(MealItemForm)
 
 const StyledContainer = styled('form')(({ theme }) => ({
   marginBottom: '10px',

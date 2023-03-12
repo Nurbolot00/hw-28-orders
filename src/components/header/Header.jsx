@@ -1,16 +1,18 @@
 import { Button } from '@mui/material'
-import { memo, useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styledComponents from 'styled-components'
 import { styled } from '@mui/material/styles'
-import {  Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { getBasket } from '../../store/meals/basket.slice'
 import { uiActions } from '../../store/ui/ui.slice'
 
 import BasketButton from './BusketButton'
 import { signOut } from '../../store/auth/auth.thunk'
+import { withAuthModal } from '../hoc/withAuthModal'
+import MuiButton from '../UI/MuiButton'
 
-const Header = ({ onShowBasket }) => {
+const Header = ({ onShowBasket, showAuthModal }) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const isAuthorized = useSelector((state) => state.auth.isAuthorized)
@@ -49,22 +51,36 @@ const Header = ({ onShowBasket }) => {
   const signOutHandler = () => {
     dispatch(signOut())
     navigate('/signin')
-}
+  }
 
-const signInHandler = () => {
+  const signInHandler = () => {
     navigate('/signin')
-}
+  }
+
+  const showBasketHandler = () => {
+    if (!isAuthorized) {
+      return showAuthModal()
+    }
+    return onShowBasket()
+  }
+
+  const goToOrdersPageHandler  = () =>{
+    navigate('/orders')
+  }
 
   return (
     <StyledHeaderContainer>
-       <Link to='/'><Logo>ReactMeals</Logo></Link>
+      <Link to="/">
+        <Logo>ReactMeals</Logo>
+      </Link>
 
       <StyledInnerContrainer>
         <BasketButton
-          onClick={onShowBasket}
+          onClick={showBasketHandler}
           className={animationClass}
           count={calculateTotalAmount()}
         />
+        <MuiButton onClick={goToOrdersPageHandler} variant='outlined'>My Orders</MuiButton>
         <StyledButton
           variant="contained"
           onClick={themeChangeHandler}
@@ -76,16 +92,20 @@ const signInHandler = () => {
         </StyledButton>
 
         {isAuthorized ? (
-                <Button sx={{color: '#fff'}} onClick={signOutHandler}>Sign Out</Button>
-            ) : (
-                <Button sx={{color: '#fff'}} onClick={signInHandler}>Sign In</Button>
-            )}        
+          <Button sx={{ color: '#fff' }} onClick={signOutHandler}>
+            Sign Out
+          </Button>
+        ) : (
+          <Button sx={{ color: '#fff' }} onClick={signInHandler}>
+            Sign In
+          </Button>
+        )}
       </StyledInnerContrainer>
     </StyledHeaderContainer>
   )
 }
 
-export default memo(Header)
+export default withAuthModal(Header)
 
 const StyledHeaderContainer = styled('nav')(({ theme }) => ({
   width: '100%',
@@ -103,7 +123,7 @@ const StyledHeaderContainer = styled('nav')(({ theme }) => ({
 
 const StyledInnerContrainer = styled('div')(() => ({
   display: 'flex',
-  justifyContent: 'space-around'
+  justifyContent: 'space-around',
 }))
 
 const StyledButton = styled(Button)(({ theme }) => ({

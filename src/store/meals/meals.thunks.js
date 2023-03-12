@@ -24,10 +24,9 @@ export const getMeals = createAsyncThunk(
 
 export const addMeals = createAsyncThunk(
   'meals/addMeals',
-  async (payload, { rejectWithValue, getState, dispatch }) => {
+  async (payload, { rejectWithValue, dispatch }) => {
       try {
-          const { token } = getState().auth
-          const { data } = await addMealRequest(token, payload)
+          const { data } = await addMealRequest(payload)
           dispatch(mealsAdmin())
           return data.data
       } catch (error) {

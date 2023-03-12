@@ -1,4 +1,4 @@
-import { Button, TextField } from '@mui/material'
+import { Button, TextField, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import React from 'react'
 import { useDispatch } from 'react-redux'
@@ -42,9 +42,11 @@ export const AdminModal = ({
     }
     return (
         <div>
+            
             {searchParams.has('modal') ? (
                 <StyledModal>
                     <Form>
+                      <Typography sx={{color: '#8f2929', fontSize: '22px', fontWeight: '700', textAlign:'center'}}>Food</Typography>
                         <TextField
                             value={title}
                             type="text"
@@ -71,7 +73,7 @@ export const AdminModal = ({
                         />
                     </Form>
                     <Container>
-                        <Button onClick={closeModalHandler}>
+                        <Button variant='contained' style={{color: '#FFF'}} onClick={closeModalHandler}>
                             Cancel
                         </Button>
                         {change ? (
@@ -100,11 +102,11 @@ const Container = styled('div')`
 const StyledModal = styled('div')`
     position: fixed;
     padding: 30px;
-    top: 30%;
+    top: 20%;
     left: 33%;
     width: 500px;
     height: auto;
-    background-color: #f6eff4;
+    background-color: #e6dde4;
     border-radius: 5px;
 `
 const Form = styled('form')`
@@ -112,21 +114,3 @@ const Form = styled('form')`
     flex-direction: column;
     row-gap: 30px;
 `
-// const CancelButon = styled(Button)`
-//     background-color: red;
-//     color: white;
-//     font-size: 15px;
-//     margin-right: 20px;
-//     :hover {
-//         background-color: blue;
-//     }
-// `
-// const AddButton = styled(Button)`
-//     background-color: #0d00ff;
-//     color: white;
-//     font-size: 15px;
-//     margin-right: 20px;
-//     :hover {
-//         background-color: #ff0000;
-//     }
-// `

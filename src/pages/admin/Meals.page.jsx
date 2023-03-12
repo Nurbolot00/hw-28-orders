@@ -12,15 +12,17 @@ import MuiButton from '../../components/UI/MuiButton'
 export const Meals = () => {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
-    const [price, setPrice] = useState(0)
+    const [price, setPrice] = useState()
     const [searchParams, setSearchparams] = useSearchParams()
     const [change, setChange] = useState(false)
+    const [backdrop, setBackdrop] = useState(false)
     const { meals, newMeal } = useSelector((state) => {
         return state.mealsAdmin
     } )
     const openModalHandler = () => {
         searchParams.set('modal', 'addNewMeal')
         setSearchparams(searchParams)
+        setBackdrop(true)
     }
     const dispatch = useDispatch()
     useEffect(() => {
@@ -31,6 +33,7 @@ export const Meals = () => {
         searchParams.delete('modal')
         setSearchparams(searchParams)
         setChange(false)
+        setBackdrop(false)
     }
     const deleteMealHandler = (id) => {
         dispatch(deleteMeal(id))
@@ -56,14 +59,14 @@ export const Meals = () => {
         closeModalHAndler()
     }
     return (
-        <>
-            <Container>
+        < >
+            <Container style={backdrop ? {filter: 'blur(5px)'} : {filter: 'grayscale(0)'}}>
                 <Title>Meals:</Title>
                 <StyledButton onClick={openModalHandler}>
                     Add Meals
                 </StyledButton>
             </Container>
-            <div>
+            <div style={backdrop ? {filter: 'blur(5px)'} : {filter: 'grayscale(0)'}}>
                 <MealList>
                     {meals.map((item) => {
                         return (
@@ -120,7 +123,8 @@ export const Meals = () => {
 export default Meals
 
 const Container = styled('div')`
-    width: 100%;
+    width: 80%;
+    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -129,10 +133,10 @@ const Container = styled('div')`
 
 const StyledButton = styled(Button)`
     padding: 10px 20px;
-    background-color: blue;
+    background-color: #0cbc0c;
     color: #fff;
     :hover {
-        background-color: violet;
+        background-color: green;
     }
 `
 const Title = styled('h1')`
@@ -141,10 +145,11 @@ const Title = styled('h1')`
 const MealList = styled('ul')`
     width: 70%;
     margin: 0 auto;
-    margin-top: 100px;
+    margin-top: 1rem;
     background-color: white;
     border-radius: 20px;
     list-style: none;
+    margin-bottom: 2rem;
 `
 const ListItem = styled('li')`
     display: flex;
@@ -165,15 +170,4 @@ const ListItem = styled('li')`
         margin-right: 40px;
     }
 `
-// const MealButtons = styled(Button)`
-//     width: 100px;
-//     height: 50px;
-//     background-color: teal;
-//     color: aliceblue;
-//     margin-left: 10px;
-//     :hover {
-//         color: teal;
-//         background: #892be236;
-//     }
-// `
 

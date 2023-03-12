@@ -4,11 +4,9 @@ import { deleteMealRequest, getMealsAdminRequest, getOneMealRequest, updateMealR
 
 export const mealsAdmin = createAsyncThunk(
     'mealsAdmin/getMeals',
-    async (payload, { rejectWithValue, getState }) => {
+    async (payload, { rejectWithValue }) => {
         try {
-            const { token } = getState().auth
-
-            const { data } = await getMealsAdminRequest(token)
+            const { data } = await getMealsAdminRequest()
             return data.data
         } catch (error) {
             return rejectWithValue(error)
@@ -18,10 +16,9 @@ export const mealsAdmin = createAsyncThunk(
 
 export const deleteMeal = createAsyncThunk(
     'mealsAdmin/delete',
-    async (payload, { rejectWithValue, getState, dispatch }) => {
+    async (payload, { rejectWithValue, dispatch }) => {
         try {
-            const { token } = getState().auth
-            const { data } = await deleteMealRequest(token, payload)
+            const { data } = await deleteMealRequest(payload)
             dispatch(mealsAdmin())
             return data.data
         } catch (error) {
@@ -32,11 +29,9 @@ export const deleteMeal = createAsyncThunk(
 
 export const getOneMeal = createAsyncThunk(
     'mealsAdmin/getOneMeal',
-    async (payload, { rejectWithValue, getState }) => {
+    async (payload, { rejectWithValue }) => {
         try {
-            const { token } = getState().auth
-
-            const { data } = await getOneMealRequest(token, payload)
+            const { data } = await getOneMealRequest(payload)
             return data.data
         } catch (error) {
             return rejectWithValue(error)
@@ -46,10 +41,9 @@ export const getOneMeal = createAsyncThunk(
 
 export const updateMeal = createAsyncThunk(
     'mealsAdmin/updateMeal',
-    async (payload, { rejectWithValue, getState, dispatch }) => {
+    async (payload, { rejectWithValue, dispatch }) => {
         try {
-            const { token } = getState().auth
-            const { data } = await updateMealRequest(token, payload)
+            const { data } = await updateMealRequest(payload)
             dispatch(mealsAdmin())
             return data.data
         } catch (error) {

@@ -23,6 +23,7 @@ const SignIn = () => {
         .then(() => navigate('/'))
         .catch((e) => setError(e.response.data.message))
     } catch (er) {
+      // eslint-disable-next-line no-console
       console.log(er)
     }
   }
@@ -69,17 +70,17 @@ const SignIn = () => {
               onChange={handleChange}
               label="Password"
               name="password"
-              sx={{ marginTop: '20px' }}
+              sx={{ margin: '15px 0' }}
             />
             {error && (
               <Typography
                 textAlign="center"
-                sx={{ color: (theme) => theme.palette.error.main }}
+                sx={{ color: (theme) => theme.palette.error.main, margin: '10px' }}
               >
                 {error}
               </Typography>
             )}
-            <Button type="submit">Sign In</Button>
+            <Button style={{ margin: '0px 15px' }} type="submit">Sign In</Button>
             <Link to="/signup">{`Don't have account`}</Link>
             <Link to="/">Go Back to main Page</Link>
           </FormGrid>
@@ -94,7 +95,7 @@ export default SignIn
 const MainGrid = styled(Grid)(() => ({
   display: 'flex',
   justifyContent: 'center',
-  marginTop: '200px',
+  marginTop: '100px',
 }))
 
 const GridContainer = styled(Grid)(() => ({

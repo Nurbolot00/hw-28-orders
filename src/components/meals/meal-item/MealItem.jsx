@@ -12,7 +12,7 @@ const MealItem = ({ meal }) => {
         <p>{meal.description}</p>
         <span>${meal.price}</span>
       </StyledInfoContainer>
-      <MealItemForm price={meal.price} title={meal.title} id={meal._id} />
+      <MealItemForm price={meal.price} title={meal.title} id={meal._id}  />
     </Container>
   )
 }

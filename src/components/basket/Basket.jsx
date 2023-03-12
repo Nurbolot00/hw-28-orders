@@ -4,6 +4,7 @@ import styledComponents from 'styled-components'
 import { styled } from '@mui/material/styles'
 import {
   deleteBasketItem,
+  getBasket,
   submitOrder,
   updateBasketItem,
 } from '../../store/meals/basket.slice'
@@ -16,18 +17,23 @@ const Basket = ({ onOpen, onClose }) => {
   const items = useSelector((state) => state.basket.items)
   const dispatch = useDispatch()
 
+  const getTotalPrice = useCallback(() => {
+    // eslint-disable-next-line no-return-assign, no-param-reassign
+    return items.reduce((sum, { price, amount }) => (sum += price * amount), 0)
+  }, [items])
+
+  const price = {
+    totalPrice: getTotalPrice(),
+  }
+
   const orderSubmitHandler = async () => {
     try {
-      await dispatch(
-        submitOrder({
-          oderData: { items },
-        })
-      ).unwrap()
+      await dispatch(submitOrder(price)).unwrap()
 
       dispatch(
         uiActions.showSnackbar({
           severity: 'success',
-          message: 'Order completed successfully',
+          message: 'Order created successfully',
         })
       )
     } catch (error) {
@@ -39,6 +45,7 @@ const Basket = ({ onOpen, onClose }) => {
       )
     } finally {
       onClose()
+      getBasket()
     }
   }
 
@@ -60,10 +67,6 @@ const Basket = ({ onOpen, onClose }) => {
     [dispatch]
   )
 
-  const getTotalPrice = useCallback(() => {
-    // eslint-disable-next-line no-return-assign, no-param-reassign
-    return items.reduce((sum, { price, amount }) => (sum += price * amount), 0)
-  }, [items])
   return (
     <BasicModal onOpen={onOpen} onClose={onClose}>
       <StyledContainer>

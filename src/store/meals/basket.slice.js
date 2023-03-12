@@ -5,6 +5,7 @@ import {
   deleteBasketItemRequest,
   getBasketRequest,
 } from '../../api/basketService'
+import { addOrderRequest } from '../../api/orderService'
 
 export const basketActionTypes = {
   ADD_ITEM_SUCCESS: ' ADD_ITEM_SUCCESS',
@@ -106,12 +107,9 @@ export const basketActions = basketSlice.actions
 
 export const submitOrder = createAsyncThunk(
   'basket/addToBasket',
-  async ({ orderData }, { dispatch, rejectWithValue }) => {
+  async (orderData, { dispatch, rejectWithValue }) => {
     try {
-      await fetch(`https://jsonplaceholder.typicode.com/posts`, {
-        method: 'POST',
-        body: orderData,
-      })
+      await addOrderRequest(orderData)
       dispatch(getBasket())
       return rejectWithValue('Something went wrong')
     } catch (error) {

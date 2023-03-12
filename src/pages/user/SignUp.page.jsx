@@ -1,29 +1,35 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { Grid, TextField } from '@mui/material'
+import { FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup, TextField } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { useFormik } from 'formik'
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import Button from '../../components/UI/Button'
-import UserRoles from '../../lib/constants/common'
 import signUp from '../../store/auth/auth.thunk'
 
 const SignUp = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  const [userRole,setUserRole] = useState('USER')
+
+
+
   const submitHandler = ({ email, name, password }) => {
     const data = {
       email,
       name,
       password,
-      role: UserRoles.ADMIN,
+      role: userRole,
     }
 
     dispatch(signUp(data))
       .unwrap()
       .then(() => navigate('/'))
   }
+
+
 
   const formik = useFormik({
     initialValues: {
@@ -67,6 +73,28 @@ const SignUp = () => {
               name="confirmPassword"
               label="Confirm Password"
             />
+            <FormControl>
+              <FormLabel id="demo-radio-buttons-group-label">User Role</FormLabel>
+              <RadioGroup
+                aria-labelledby="demo-radio-buttons-group-label"
+                defaultValue="female"
+                name="radio-buttons-group"
+              >
+                <FormControlLabel
+                  value="user"
+                  control={<Radio />}
+                  label="User"
+                  onChange={() => setUserRole('USER')}
+                />
+                <FormControlLabel
+                  value="admin"
+                  control={<Radio />}
+                  label="Admin"
+                  onChange={() => setUserRole('ADMIN')}
+                />
+              </RadioGroup>
+            </FormControl>
+
             <Button type="submit">Sign up</Button>
             <Link to="/signin">Have an account</Link>
             <Link to="/">Go Back to main Page</Link>
@@ -82,7 +110,8 @@ export default SignUp
 const MainGrid = styled(Grid)(() => ({
   display: 'flex',
   justifyContent: 'center',
-  marginTop: '200px',
+  marginTop: '60px',
+  marginBottom: '2rem'
 }))
 
 const GridContainer = styled(Grid)(() => ({

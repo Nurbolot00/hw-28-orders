@@ -12,6 +12,7 @@ import { Meals as AdminMeals } from '../pages/admin/Meals.page'
 import Orders from '../pages/admin/Orders.page'
 import { ProtectedRoutes } from './ProtectedRoutes'
 import userRoles from '../lib/constants/common'
+import OrdersPage from '../pages/user/Orders.page'
 
 const Routes = () => {
   const role = useSelector((state) => state.auth.user.role)
@@ -36,7 +37,7 @@ const Routes = () => {
           element={
             <ProtectedRoutes
               isAllowed={isAllowed([userRoles.GUEST, userRoles.USER])}
-              fallBackPath={role === userRoles.ADMIN ? "admin/meals" : "/"}
+              fallBackPath={role === userRoles.ADMIN ? 'admin/meals' : '/'}
               component={MealsPage}
             />
           }
@@ -46,35 +47,70 @@ const Routes = () => {
           element={
             <ProtectedRoutes
               isAllowed={isAllowed([userRoles.GUEST])}
-              fallBackPath={role === userRoles.ADMIN ? "admin/meals" : "/"}
+              fallBackPath={role === userRoles.ADMIN ? 'admin/meals' : '/'}
               component={SignUp}
             />
           }
         />
-        <Route path="signin" element={<ProtectedRoutes
+        <Route
+          path="signin"
+          element={
+            <ProtectedRoutes
               isAllowed={isAllowed([userRoles.GUEST])}
-              fallBackPath={role === userRoles.ADMIN ? "admin/meals" : "/"}
+              fallBackPath={role === userRoles.ADMIN ? 'admin/meals' : '/'}
               component={SignIn}
-            />} />
+            />
+          }
+        />
+        <Route
+          path="orders"
+          element={
+            <ProtectedRoutes
+              isAllowed={isAllowed([ userRoles.USER])}
+              fallBackPath={role === userRoles.ADMIN ? 'admin/meals' : '/'}
+              component={OrdersPage}
+            />
+          }
+        />
       </Route>
 
-      <Route path="/admin" element={<ProtectedRoutes
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoutes
+            isAllowed={isAllowed([userRoles.ADMIN])}
+            fallBackPath="/"
+            component={AdminLayout}
+          />
+        }
+      >
+        <Route
+          path="meals"
+          element={
+            <ProtectedRoutes
               isAllowed={isAllowed([userRoles.ADMIN])}
-              fallBackPath='/'
-              component={AdminLayout}
-            />}>
-        <Route path="meals" element={<ProtectedRoutes
-              isAllowed={isAllowed([userRoles.ADMIN])}
-              fallBackPath='/'
+              fallBackPath="/"
               component={AdminMeals}
-            />} />
-        <Route path="orders" element={<ProtectedRoutes
+            />
+          }
+        />
+        <Route
+          path="orders"
+          element={
+            <ProtectedRoutes
               isAllowed={isAllowed([userRoles.ADMIN])}
-              fallBackPath='/'
+              fallBackPath="/"
               component={Orders}
-            />} />
+            />
+          }
+        />
       </Route>
-      <Route path='*' element={<Typography sx={{color: '#e0360b'}}>PAGE NOT FOUND!!!</Typography>}/>
+      <Route
+        path="*"
+        element={
+          <Typography sx={{ color: '#e0360b' }}>PAGE NOT FOUND!!!</Typography>
+        }
+      />
     </Router>
   )
 }
