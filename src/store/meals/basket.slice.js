@@ -4,6 +4,7 @@ import {
   addToBasketRequest,
   deleteBasketItemRequest,
   getBasketRequest,
+  updateBasketRequest,
 } from '../../api/basketService'
 import { addOrderRequest } from '../../api/orderService'
 
@@ -60,8 +61,7 @@ export const updateBasketItem = createAsyncThunk(
   'basket/updateBasketItem',
   async ({ id, amount }, { dispatch, rejectWithValue }) => {
     try {
-      await updateBasketItem(id, amount)
-      
+      await updateBasketRequest(id, amount)
       dispatch(getBasket())
     } catch (error) {
       return rejectWithValue('Something went wrong')

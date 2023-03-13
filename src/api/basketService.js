@@ -11,7 +11,7 @@ export const getBasketRequest = () => {
 export const updateBasketRequest = (id, basketAmount) => {
   return axiosInstance.put(
     `basketItem/${id}/update`,
-    { basketAmount }
+    { amount: basketAmount }
 )
 }
 
